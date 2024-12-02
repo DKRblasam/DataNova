@@ -1,6 +1,6 @@
 <?php
 // Incluir la conexión a la base de datos
-require_once '../data/db.php';
+require_once ('../data/db.php');
 
 // Consultar restaurantes
 $query = "SELECT nombre, direccion, o_h FROM RESTAURANTES";
