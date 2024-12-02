@@ -1,6 +1,10 @@
 <?php
 session_start(); // Iniciar la sesión
 
+// Habilitar la visualización de errores para depurar
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_id'])) {
     header("Location: login_register.php"); // Redirigir a la página de inicio de sesión si no está autenticado
@@ -15,6 +19,12 @@ $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
+
+// Depuración para verificar si se obtiene un usuario de la base de datos
+if (!$user) {
+    echo "Usuario no encontrado o error en la consulta.";
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
