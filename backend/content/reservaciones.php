@@ -44,6 +44,6 @@
             </form>
         </section>
     </main>
-    <script src="script.js"></script>
+    <script src="../../frontend/Js/index.js"></script>
 </body>
 </html>
