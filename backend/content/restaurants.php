@@ -75,7 +75,7 @@ try {
                 <li><a href='../../backend/content/reservaciones.php' data-item='Reservaciones'>Reservaciones</a></li>
                 <li><a href='../../backend/content/restaurants.php' data-item='Restaurantes'>Restaurantes</a></li>
                 <li><a href='#' data-item='Platillos'>Platillos</a></li>
-                <li><a href='#' data-item='Ingresar'>Ingresar</a></li>
+                <li><a href='../../backend/content/login_register.php' data-item='Ingresar'>Ingresar</a></li>
             </ul>
         </nav>
     </header>
