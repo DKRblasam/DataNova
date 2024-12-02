@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("data/db.php");
+include("../data/db.php");
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_id'])) {
