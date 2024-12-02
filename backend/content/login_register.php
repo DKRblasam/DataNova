@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
     // Insertar el nuevo usuario en la base de datos
     try {
-        $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO CLIENTES (username, password) VALUES (?, ?)");
         $stmt->execute([$username, $password]);
         $successMessage = "Registro exitoso. Puedes iniciar sesión ahora.";
     } catch (PDOException $e) {
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
     // Verificar las credenciales del usuario
     try {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt = $pdo->prepare("SELECT * FROM CLIENTES WHERE username = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch();
 
