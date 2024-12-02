@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("UPDATE RESERVAS SET fecha = ?, numero_personas = ? WHERE id_reserva = ?");
     $stmt->execute([$fecha, $numero_personas, $id]);
 
-    header("Location: reservations.php"); // Redirigir a la página de reservas
+    header("Location: reservation.php"); // Redirigir a la página de reservas
     exit();
 }
 
@@ -28,7 +28,7 @@ $stmt->execute([$id]);
 $reserva = $stmt->fetch();
 
 if (!$reserva) {
-    echo "Reserva no encontrada.";
+    echo "Reservacion no encontrada.";
     exit();
 }
 ?>

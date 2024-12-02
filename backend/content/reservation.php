@@ -91,8 +91,8 @@ $reservas = $stmt->fetchAll();
                         <td class="py-2 px-4"><?php echo htmlspecialchars($reserva['fecha']); ?></td>
                         <td class="py-2 px-4"><?php echo htmlspecialchars($reserva['numero_personas']); ?></td>
                         <td class="py-2 px-4">
-                            <a href="edit_reservation.php?id=<?php echo $reserva['id_reserva']; ?>" class="text-blue-400 hover:underline">Editar</a>
-                            <a href="delete_reservation.php?id=<?php echo $reserva['id_reserva']; ?>" class="text-red-400 hover:underline ml-4">Eliminar</a>
+                            <a href="edid-reser.php?id=<?php echo $reserva['id_reserva']; ?>" class="text-blue-400 hover:underline">Editar</a>
+                            <a href="delete-res.php?id=<?php echo $reserva['id_reserva']; ?>" class="text-red-400 hover:underline ml-4">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

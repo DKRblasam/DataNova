@@ -106,13 +106,10 @@ var_dump($user);  // Esto debería mostrar los detalles del usuario si la consul
             <h2 class="text-xl font-bold mb-2">Opciones</h2>
             <ul>
                 <li class="mb-2">
-                    <a href="reservations.php" class="text-blue-400 hover:underline">Ver Reservas</a>
+                    <a href="reservation.php" class="text-blue-400 hover:underline">Ver Reservas</a>
                 </li>
                 <li class="mb-2">
                     <a href="restaurants.php" class="text-blue-400 hover:underline">Ver Restaurantes</a>
-                </li>
-                <li class="mb-2">
-                    <a href="profile.php" class="text-blue-400 hover:underline">Mi Perfil</a>
                 </li>
             </ul>
         </div>
