@@ -57,6 +57,7 @@ try {
             font-size: 1.25rem;
             font-weight: bold;
             margin-bottom: 5px;
+            color: #333;
         }
 
         .card-price {
