@@ -84,7 +84,7 @@ try {
 
         <!-- Mostrar Restaurantes -->
         <section>
-            <h2 class="text-3xl font-semibold text-center mb-6">Nuestros Restaurantes</h2>
+            <h2 class="text-large font-semibold text-center mb-6">Nuestros Restaurantes</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php if (!empty($restaurantesData)): ?>
                     <?php foreach ($restaurantesData as $restaurante): ?>
