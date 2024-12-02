@@ -55,11 +55,7 @@ try {
             </div>
         </section>
 
-        <!-- Mostrar Clientes (Debugging con console.log) -->
-        <section class="mt-8">
-            <h2 class="text-2xl font-semibold text-center mb-6">Clientes (Depuración)</h2>
-            <div id="clientes-data"></div>
-        </section>
+        
 
     </main>
 
