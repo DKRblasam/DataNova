@@ -25,37 +25,44 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva tu Restaurante</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        section {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
 
-    <header class="bg-blue-600 text-white py-4">
+    <header class="bg-blue-600 text-white py-6">
         <div class="container mx-auto text-center">
-            <h1 class="text-3xl font-bold">Reserva en tu Restaurante Favorito</h1>
-            <p class="mt-2">Explora nuestros restaurantes y haz tu reserva fácilmente.</p>
+            <h1 class="text-4xl font-extrabold">Reserva en tu Restaurante Favorito</h1>
+            <p class="mt-2 text-xl">Explora nuestros restaurantes y haz tu reserva fácilmente.</p>
         </div>
     </header>
 
-    <main class="container mx-auto my-8">
+    <main class="container mx-auto my-8 px-4">
 
         <!-- Mostrar Restaurantes -->
         <section>
-            <h2 class="text-2xl font-semibold text-center mb-6">Nuestros Restaurantes</h2>
+            <h2 class="text-3xl font-semibold text-center mb-6">Nuestros Restaurantes</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php if (!empty($restaurantesData)): ?>
                     <?php foreach ($restaurantesData as $restaurante): ?>
-                        <div class="bg-white shadow-md rounded-lg p-4">
-                            <h3 class="font-semibold text-xl"><?= $restaurante['nombre']; ?></h3>
-                            <p class="text-gray-700"><?= $restaurante['direccion']; ?></p>
-                            <p class="text-gray-500"><?= $restaurante['o_h']; ?></p>
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300">
+                            <img src="https://via.placeholder.com/400x200?text=Imagen+Restaurante" alt="Imagen de <?= $restaurante['nombre']; ?>" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold text-xl text-blue-800"><?= $restaurante['nombre']; ?></h3>
+                                <p class="text-gray-700"><?= $restaurante['direccion']; ?></p>
+                                <p class="text-gray-500"><?= $restaurante['o_h']; ?></p>
+                                <a href="#" class="text-blue-600 mt-4 block text-center py-2 px-4 rounded-lg border-2 border-blue-600 hover:bg-blue-600 hover:text-white transition duration-300">Ver más</a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>No se encontraron restaurantes disponibles.</p>
+                    <p class="text-center text-red-500">No se encontraron restaurantes disponibles.</p>
                 <?php endif; ?>
             </div>
         </section>
-
-        
 
     </main>
 
