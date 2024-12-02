@@ -1,8 +1,7 @@
 <?php
-include ("../data/db.php");
+include('../data/db.php');
 
 // Consultar los restaurantes
-$restaurantesData = []; // Inicializar la variable
 try {
     $sql_restaurantes = "SELECT * FROM RESTAURANTES";
     $stmt_restaurantes = $pdo->prepare($sql_restaurantes);
@@ -12,10 +11,14 @@ try {
         while ($row = $stmt_restaurantes->fetch()) {
             $restaurantesData[] = $row;
         }
-    } 
+    } else {
+        $restaurantesData = [];
+    }
 } catch (PDOException $e) {
     $errorMessage = "Error al obtener los restaurantes: " . $e->getMessage();
+    $restaurantesData = [];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -88,7 +91,7 @@ try {
             }
         } catch (PDOException $e) {
             echo "const clientes = [];";
-            echo "console.error('Error al obtener los clientes: " . json_encode($e->getMessage()) . "');";
+            echo "console.error('Error al obtener los clientes: " . addslashes($e->getMessage()) . "');";
         }
         ?>
 
