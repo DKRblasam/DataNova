@@ -75,9 +75,9 @@ try {
         <nav class="nav">
             <ul class="menuItems">
                 <li><a href='#' data-item='Inicio'>Inicio</a></li>
-                <li><a href='../../backend/content/reservaciones.php' data-item='Reservaciones'>Reservaciones</a></li>
-                <li><a href='../../backend/content/restaurants.php' data-item='Restaurantes'>Restaurantes</a></li>
-                <li><a href='#' data-item='Platillos'>Platillos</a></li>
+                <li><a href='./reservaciones.php' data-item='Reservaciones'>Reservaciones</a></li>
+                <li><a href='./restaurants.php' data-item='Restaurantes'>Restaurantes</a></li>
+                <li><a href='./platillos.php' data-item='Platillos'>Platillos</a></li>
                 <li><a href='../../backend/content/login_register.php' data-item='Ingresar'>Ingresar</a></li>
             </ul>
         </nav>
@@ -92,7 +92,7 @@ try {
                 <?php if (!empty($restaurantesData)) : ?>
                     <ul class="space-y-4">
                         <?php foreach ($restaurantesData as $restaurante) : ?>
-                            <li class="p-4 border rounded-lg shadow-sm bg-white">
+                            <li class="p-4 border rounded-lg shadow-sm">
                                 <h3 class="text-lg font-bold"><?= htmlspecialchars($restaurante['nombre']); ?></h3>
                                 <p class="text-sm text-black-600">Ubicación: <?= htmlspecialchars($restaurante['ubicacion']); ?></p>
                             </li>
