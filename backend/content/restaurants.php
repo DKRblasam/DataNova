@@ -32,6 +32,9 @@ try {
         section {
             padding: 10px;
         }
+        h2 h3 p{
+            color: #333;
+        }
     </style>
 </head>
 
@@ -91,7 +94,7 @@ try {
                         <?php foreach ($restaurantesData as $restaurante) : ?>
                             <li class="p-4 border rounded-lg shadow-sm bg-white">
                                 <h3 class="text-lg font-bold"><?= htmlspecialchars($restaurante['nombre']); ?></h3>
-                                <p class="text-sm text-gray-600">Ubicación: <?= htmlspecialchars($restaurante['ubicacion']); ?></p>
+                                <p >Ubicación: <?= htmlspecialchars($restaurante['ubicacion']); ?></p>
                             </li>
                         <?php endforeach; ?>
                     </ul>
