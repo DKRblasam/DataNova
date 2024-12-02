@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
     // Insertar el nuevo usuario en la base de datos
     try {
-        $stmt = $pdo->prepare("INSERT INTO CLIENTES (username, password) VALUES (?, ?)");
-        $stmt->execute([$username, $password]);
+        $stmt = $pdo->prepare("INSERT INTO Usuarios (nombre, email, contraseña, rol) VALUES (?, ?, ?, 'cliente')");
+        $stmt->execute([$username, $username . '@email.com', $password]); // Usamos el username como email
         $successMessage = "Registro exitoso. Puedes iniciar sesión ahora.";
     } catch (PDOException $e) {
         $errorMessage = "Error al registrar: " . $e->getMessage();
@@ -28,14 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
     // Verificar las credenciales del usuario
     try {
-        $stmt = $pdo->prepare("SELECT * FROM CLIENTES WHERE username = ?");
+        $stmt = $pdo->prepare("SELECT * FROM Usuarios WHERE nombre = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch();
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && password_verify($password, $user['contraseña'])) {
             // Inicio de sesión exitoso
             session_start();
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id'] = $user['id_usuario'];
             header("Location: dashboard.php"); // Redirigir a la página de inicio
             exit();
         } else {
@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             background-color: #22223b;
             color: aliceblue;
         }
+
         .container {
             max-width: 400px;
             margin: 50px auto;
@@ -93,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         </form>
 
         <h2 class="text-2xl font-bold text-center mb-4 mt-6">Registrar</h2>
-        <form method=" POST">
+        <form method="POST">
             <div class="mb-4">
                 <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
