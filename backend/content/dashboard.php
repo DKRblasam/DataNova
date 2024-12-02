@@ -100,7 +100,7 @@ var_dump($user);  // Esto debería mostrar los detalles del usuario si la consul
         </nav>
     </header>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold text-center mb-4">Bienvenido, <?php echo htmlspecialchars($user['usuario']); ?>!</h1>
+        <h1 class="text-3xl font-bold text-center mb-4">Bienvenido, ¿Cómo estas?!</h1>
 
         <div class="bg-gray-800 p-4 rounded shadow">
             <h2 class="text-xl font-bold mb-2">Opciones</h2>
