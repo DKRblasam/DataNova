@@ -104,7 +104,7 @@ try {
         </svg>
       </div>
       <h2 class="tile-pag">
-        MesaEstelar
+        MesaEstelar -lista platillos
       </h2>
     </div>
     <nav class="nav">
