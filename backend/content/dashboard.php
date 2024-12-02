@@ -14,9 +14,17 @@ if (!isset($_SESSION['user_id'])) {
 // Incluir el archivo de conexión a la base de datos
 include("../data/db.php");
 
+// Depuración para verificar si $_SESSION['user_id'] tiene un valor
+if (!isset($_SESSION['user_id'])) {
+    echo "No se ha encontrado el ID del usuario en la sesión.";
+    exit();
+}
+
 // Obtener la información del usuario
 $user_id = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
+
+// Realizar la consulta con el nombre correcto de la tabla y el campo del ID
+$stmt = $pdo->prepare("SELECT nombre, apellido, email, rol FROM Usuarios WHERE id_usuario = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
@@ -25,7 +33,11 @@ if (!$user) {
     echo "Usuario no encontrado o error en la consulta.";
     exit();
 }
+
+// Depuración de la variable $user
+var_dump($user);  // Esto debería mostrar los detalles del usuario si la consulta es exitosa
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
