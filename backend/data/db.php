@@ -26,7 +26,7 @@ try {
 }
 
 try {
-    $sql = "SELECT * FROM clientes";
+    $sql = "SELECT * FROM CLIENTES";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
