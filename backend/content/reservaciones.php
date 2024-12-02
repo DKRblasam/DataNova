@@ -131,4 +131,5 @@ $reservas = $stmt->fetchAll();
         </table>
     </div>
 </body>
+
 </html>
