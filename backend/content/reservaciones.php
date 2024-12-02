@@ -1,12 +1,11 @@
 <?php
 header("Content-Type: application/json");
-require 'db.php';
+require '../data/db.php';
 
 // Obtener lista de restaurantes
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'getRestaurants') {
   $stmt = $pdo->query("SELECT * FROM restaurants");
   $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  echo "<script> console.log('HOST: " . json_encode($host) . "'); </script>";
   exit;
 }
 
@@ -17,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'createReservat
   $customer_name = $data['customer_name'];
   $reservation_time = $data['reservation_time'];
 
-  $stmt = $pdo->prepare("INSERT INTO reservations (restaurant_id, customer_name, reservation_time) VALUES (?, ?, ?)");
+  $stmt = $pdo->prepare("INSERT INTO RESERVAS (restaurant_id, customer_name, reservation_time) VALUES (?, ?, ?)");
   $stmt->execute([$restaurant_id, $customer_name, $reservation_time]);
 
   echo json_encode(['message' => 'Reserva creada con éxito']);
