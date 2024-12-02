@@ -16,9 +16,6 @@ try {
 } catch (PDOException $e) {
   $errorMessage = "Error al obtener los restaurantes: " . $e->getMessage();
 }
-
-// Convertir los datos de los restaurantes a JSON para enviar al frontend
-echo json_encode($restaurantesData);
 ?>
 <!DOCTYPE html>
 <html lang="es">
