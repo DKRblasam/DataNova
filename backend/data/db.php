@@ -1,11 +1,13 @@
 <?php
 // backend/databases/db.php
 
-$host = getenv('DB_HOST') ?: '10.177.135.248';
+$host = getenv('DB_HOST') ?: '127.0.0.1';
 $db   = getenv('DB_NAME') ?: 'RestaurantManagementDB';
 $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS') ?: 'El.Pass_w0rd';
 $charset = 'utf8mb4';
+
+echo "<script> console.log ('HOST: ',$host) </script>";
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
