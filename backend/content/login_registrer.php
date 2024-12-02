@@ -1,6 +1,6 @@
 <?php
 // Incluir el archivo de conexión a la base de datos
-include("data/db.php");
+include("../data/db.php");
 
 // Inicializar variables para mensajes de error
 $errorMessage = "";
