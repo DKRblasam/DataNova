@@ -27,6 +27,13 @@ $reservas = $stmt->fetchAll();
     <title>Mis Reservas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="../../frontend/src/CSS/style.css">
+    <style>
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
