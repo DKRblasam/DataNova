@@ -25,24 +25,4 @@ try {
     throw new \PDOException("Database connection failed.", 500);
 }
 
-try {
-    $sql = "SELECT * FROM CLIENTES";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-
-    if ($stmt->rowCount() > 0) {
-        while ($row = $stmt->fetch()) {
-            // Usa json_encode para evitar conflictos de caracteres
-            $logData = json_encode($row);
-            echo "<script> console.log($logData); </script>";
-        }
-    } else {
-        echo "<script> console.log('No se encontraron registros en la tabla clientes.'); </script>";
-    }
-} catch (PDOException $e) {
-    $errorMessage = json_encode("Error al ejecutar la consulta: " . $e->getMessage());
-    echo "<script> console.error($errorMessage); </script>";
-}
-
-
 $pdo = null;
