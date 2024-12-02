@@ -1,22 +1,3 @@
-<?php
-include("../data/db.php"); // Incluye tu archivo de conexión a la base de datos
-
-// Consultar los restaurantes
-$restaurantesData = []; // Inicializar la variable
-try {
-  $sql_restaurantes = "SELECT * FROM RESTAURANTES";
-  $stmt_restaurantes = $pdo->prepare($sql_restaurantes);
-  $stmt_restaurantes->execute();
-
-  if ($stmt_restaurantes->rowCount() > 0) {
-    while ($row = $stmt_restaurantes->fetch()) {
-      $restaurantesData[] = $row;
-    }
-  }
-} catch (PDOException $e) {
-  $errorMessage = "Error al obtener los restaurantes: " . $e->getMessage();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -74,8 +55,8 @@ try {
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Hacer la solicitud fetch para obtener los restaurantes
-      fetch('../path-to-your-php-file/consulta_restaurantes.php') // Asegúrate de poner la URL correcta a tu archivo PHP
-        .then(response => response.json())
+      fetch('tu-script.php') // Llamar al script PHP que genera el JSON
+        .then(response => response.json()) // Convertir la respuesta JSON en un objeto JavaScript
         .then(data => {
           const selectRestaurante = document.getElementById('restaurante');
           const listaRestaurantes = document.getElementById('lista-restaurantes');
