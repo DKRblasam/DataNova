@@ -93,15 +93,16 @@ if (!$reserva) {
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($reserva['id_reserva']); ?>">
             <div class="mb-4">
                 <label for="fecha" class="block text-gray-200">Fecha:</label>
-                <input type="date" name="fecha" id="fecha" value="<?php echo htmlspecialchars($reserva['fecha']); ?>" class="mt-1 block w-full p-2 rounded" required>
+                <input type="date" name="fecha" id="fecha" value="<?php echo htmlspecialchars($reserva['fecha']); ?>" class="mt-1 block w-full p-2 rounded bg-yellow-200 border-2 border-yellow-500 focus:border-yellow-700 text-[#333]" required>
             </div>
             <div class="mb-4">
                 <label for="numero_personas" class="block text-gray-200">Número de Personas:</label>
-                <input type="number" name="numero_personas" id="numero_personas" value="<?php echo htmlspecialchars($reserva['numero_personas']); ?>" class="mt-1 block w-full p-2 rounded" required>
+                <input type="number" name="numero_personas" id="numero_personas" value="<?php echo htmlspecialchars($reserva['numero_personas']); ?>" class="mt-1 block w-full p-2 rounded bg-yellow-200 border-2 border-yellow-500 focus:border-yellow-700 text-[#333]" required>
             </div>
             <button type="submit" class="bg-blue-500 text-white p-2 rounded">Actualizar Reserva</button>
         </form>
     </div>
+
 </body>
 
 </html>
