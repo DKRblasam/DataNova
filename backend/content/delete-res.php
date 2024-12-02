@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>Fecha: <strong><?php echo htmlspecialchars($reserva['fecha']); ?></strong></p>
             <p>Número de Personas: <strong><?php echo htmlspecialchars($reserva['numero_personas']); ?></strong></p>
         </div>
-        <form action="delete_reservation.php?id=<?php echo $id; ?>" method="POST" class="mt-4">
+        <form action="delete-res.php" method="POST" class="mt-4">
             <button type="submit" class="bg-red-600 text-white p-2 rounded">Eliminar Reserva</button>
             <a href="reservations.php" class="bg-gray-500 text-white p-2 rounded ml-4">Cancelar</a>
         </form>
