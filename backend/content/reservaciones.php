@@ -1,53 +1,84 @@
+<?php
+header("Content-Type: application/json");
+require 'db.php';
+
+// Obtener lista de restaurantes
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'getRestaurants') {
+  $stmt = $pdo->query("SELECT * FROM restaurants");
+  $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($restaurants);
+  exit;
+}
+
+// Crear una nueva reserva
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'createReservation') {
+  $data = json_decode(file_get_contents('php://input'), true);
+  $restaurant_id = $data['restaurant_id'];
+  $customer_name = $data['customer_name'];
+  $reservation_time = $data['reservation_time'];
+
+  $stmt = $pdo->prepare("INSERT INTO reservations (restaurant_id, customer_name, reservation_time) VALUES (?, ?, ?)");
+  $stmt->execute([$restaurant_id, $customer_name, $reservation_time]);
+
+  echo json_encode(['message' => 'Reserva creada con éxito']);
+  exit;
+}
+?>
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Reservas de Restaurantes</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Reserva de Restaurante</title>
 </head>
 
-<body class="bg-gray-100 font-sans">
-  <header class="bg-blue-600 text-white text-center py-4">
-    <h1 class="text-3xl">Sistema de Reservas de Restaurantes</h1>
-  </header>
-  <main class="container mx-auto p-4">
-    <!-- Sección de Restaurantes -->
-    <section id="restaurantes" class="mb-8">
-      <h2 class="text-xl font-bold mb-4">Restaurantes</h2>
-      <div id="lista-restaurantes" class="grid grid-cols-3 gap-4"></div>
-    </section>
+<body>
+  <h1>Reservar en un Restaurante</h1>
+  <select id="restaurantSelect"></select>
+  <input type="text" id="customerName" placeholder="Tu nombre">
+  <input type="datetime-local" id="reservationTime">
+  <button onclick="createReservation()">Reservar</button>
+  <div id="message"></div>
 
-    <!-- Formulario de Reserva -->
-    <section id="formulario-reserva">
-      <h2 class="text-xl font-bold mb-4">Hacer una Reserva</h2>
-      <form id="form-reserva" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="cliente">Nombre del Cliente:</label>
-          <input id="cliente" name="cliente" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="restaurante">Restaurante:</label>
-          <select id="restaurante" name="restaurante" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-            <!-- Las opciones serán añadidas dinámicamente por JavaScript -->
-          </select>
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="fecha">Fecha:</label>
-          <input id="fecha" name="fecha" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="personas">Número de Personas:</label>
-          <input id="personas" name="personas" type="number" min="1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-        </div>
-        <div class="flex items-center justify-between">
-          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Reservar</button>
-        </div>
-      </form>
-    </section>
-  </main>
-  <script src="../../frontend/src/Js/index.js"></script>
+  <script>
+    // Cargar restaurantes
+    fetch('backend/api.php?action=getRestaurants')
+      .then(response => response.json())
+      .then(data => {
+        const select = document.getElementById('restaurantSelect');
+        data.forEach(restaurant => {
+          const option = document.createElement('option');
+          option.value = restaurant.id;
+          option.textContent = `${restaurant.name} - ${restaurant.location}`;
+          select.appendChild(option);
+        });
+      });
+
+    // Crear reserva
+    function createReservation() {
+      const restaurantId = document.getElementById('restaurantSelect').value;
+      const customerName = document.getElementById('customerName').value;
+      const reservationTime = document.getElementById('reservationTime').value;
+
+      fetch('backend/api.php?action=createReservation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            restaurant_id: restaurantId,
+            customer_name: customerName,
+            reservation_time: reservationTime
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('message').textContent = data.message;
+        });
+    }
+  </script>
 </body>
 
 </html>
