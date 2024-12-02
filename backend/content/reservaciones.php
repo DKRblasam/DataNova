@@ -20,7 +20,6 @@ try {
 // Convertir los datos de los restaurantes a JSON para enviar al frontend
 echo json_encode($restaurantesData);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -52,7 +51,9 @@ echo json_encode($restaurantesData);
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="restaurante">Restaurante:</label>
-          <select id="restaurante" name="restaurante" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></select>
+          <select id="restaurante" name="restaurante" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <!-- Las opciones serán añadidas dinámicamente por JavaScript -->
+          </select>
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="fecha">Fecha:</label>
@@ -79,13 +80,19 @@ echo json_encode($restaurantesData);
       fetch('../path-to-your-php-file/consulta_restaurantes.php') // Asegúrate de poner la URL correcta a tu archivo PHP
         .then(response => response.json())
         .then(data => {
-          const listaRestaurantes = document.getElementById('lista-restaurantes');
           const selectRestaurante = document.getElementById('restaurante');
+          const listaRestaurantes = document.getElementById('lista-restaurantes');
 
           // Verificar si hay datos
           if (data.length > 0) {
+            // Agregar opciones al select
             data.forEach(restaurante => {
-              // Crear tarjeta de restaurante
+              const option = document.createElement('option');
+              option.value = restaurante.id; // Asume que 'id' es la columna con el identificador único
+              option.textContent = restaurante.nombre; // Nombre del restaurante
+              selectRestaurante.appendChild(option);
+
+              // Crear tarjetas de restaurante para mostrar en la página
               const divRestaurante = document.createElement('div');
               divRestaurante.classList.add('bg-white', 'p-4', 'shadow-md', 'rounded-lg');
               divRestaurante.innerHTML = `
@@ -94,12 +101,6 @@ echo json_encode($restaurantesData);
                                 <p class="text-gray-500">${restaurante.o_h}</p>
                             `;
               listaRestaurantes.appendChild(divRestaurante);
-
-              // Agregar las opciones al select del formulario
-              const option = document.createElement('option');
-              option.value = restaurante.id; // Asegúrate de que 'id' es el nombre de la columna
-              option.textContent = restaurante.nombre;
-              selectRestaurante.appendChild(option);
             });
           } else {
             listaRestaurantes.innerHTML = '<p>No se encontraron restaurantes.</p>';
@@ -112,4 +113,4 @@ echo json_encode($restaurantesData);
   </script>
 </body>
 
-</html> 
+</html>
