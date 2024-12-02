@@ -1,7 +1,7 @@
 <?php
 // backend/databases/db.php
 
-$host = getenv('DB_HOST') ?: '127.0.0.1';
+$host = getenv('DB_HOST') ?: 'localhost';
 $db   = getenv('DB_NAME') ?: 'RestaurantManagementDB';
 $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS') ?: 'El.Pass_w0rd';
