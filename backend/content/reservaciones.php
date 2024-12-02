@@ -6,7 +6,7 @@ require 'db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'getRestaurants') {
   $stmt = $pdo->query("SELECT * FROM restaurants");
   $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  echo json_encode($restaurants);
+  echo "<script> console.log('HOST: " . json_encode($host) . "'); </script>";
   exit;
 }
 
