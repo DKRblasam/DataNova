@@ -39,3 +39,28 @@ document.addEventListener("DOMContentLoaded", () => {
           });
   });
 });
+
+
+// Función para cargar los restaurantes desde el servidor
+async function cargarRestaurantes() {
+  try {
+      const response = await fetch('data-rest.php');  // Llamada a la API para obtener los restaurantes
+      const restaurantes = await response.json();  // Convertir la respuesta a JSON
+
+      const listaRestaurantes = document.getElementById('lista-restaurantes');  // Obtener el contenedor de restaurantes
+      listaRestaurantes.innerHTML = '';  // Limpiar el contenido previo
+
+      // Iterar sobre los restaurantes y crear elementos HTML
+      restaurantes.forEach(restaurante => {
+          const div = document.createElement('div');  // Crear un nuevo div para cada restaurante
+          div.className = 'bg-white p-4 rounded shadow';  // Estilos para el div
+          div.innerHTML = `<h3 class="font-bold">${restaurante.nombre}</h3><p>${restaurante.direccion}</p>`;  // Contenido del div
+          listaRestaurantes.appendChild(div);  // Agregar el div al contenedor
+      });
+  } catch (error) {
+      console.error('Error al cargar los restaurantes:', error);  // Manejo de errores
+  }
+}
+
+// Llamar a la función para cargar los restaurantes al cargar la página
+document.addEventListener('DOMContentLoaded', cargarRestaurantes);
