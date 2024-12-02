@@ -1,5 +1,5 @@
 <?php
-include ("../data/db.php");
+include("../data/db.php");
 
 // Consultar los restaurantes
 $restaurantesData = []; // Inicializar la variable
@@ -12,7 +12,7 @@ try {
         while ($row = $stmt_restaurantes->fetch()) {
             $restaurantesData[] = $row;
         }
-    } 
+    }
 } catch (PDOException $e) {
     $errorMessage = "Error al obtener los restaurantes: " . $e->getMessage();
 }
@@ -20,6 +20,7 @@ try {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +32,7 @@ try {
         }
     </style>
 </head>
+
 <body class="bg-gray-100">
 
     <header class="bg-blue-600 text-white py-6">
@@ -64,6 +66,20 @@ try {
             </div>
         </section>
 
+        <!-- Modal de Información del Restaurante -->
+        <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white p-6 rounded-lg w-11/12 sm:w-1/2 md:w-1/3">
+                <button id="close-modal" class="text-gray-500 absolute top-2 right-2 text-xl">&times;</button>
+                <h3 id="modal-title" class="text-2xl font-semibold mb-4">Detalles del Restaurante</h3>
+                <p id="modal-description" class="text-gray-700 mb-2"></p>
+                <p id="modal-address" class="text-gray-700 mb-2"></p>
+                <p id="modal-hours" class="text-gray-700 mb-4"></p>
+                <p id="modal-phone" class="text-gray-700 mb-2"></p>
+                <a id="modal-website" href="#" target="_blank" class="text-blue-600">Visitar sitio web</a>
+            </div>
+        </div>
+
+
     </main>
 
     <footer class="bg-blue-600 text-white py-4 mt-8">
@@ -71,6 +87,34 @@ try {
             <p>&copy; 2024 Sistema de Reservas. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        // Función para abrir el modal con información del restaurante
+        function showRestaurantDetails(restaurante) {
+            // Llenamos el modal con la información del restaurante
+            document.getElementById('modal-title').innerText = restaurante.nombre;
+            document.getElementById('modal-description').innerText = restaurante.descripcion || 'Descripción no disponible';
+            document.getElementById('modal-address').innerText = "Dirección: " + restaurante.direccion;
+            document.getElementById('modal-hours').innerText = "Horario: " + restaurante.o_h;
+            document.getElementById('modal-phone').innerText = "Teléfono: " + restaurante.telefono || 'No disponible';
+            document.getElementById('modal-website').setAttribute('href', restaurante.sitio_web || '#');
+
+            // Mostrar el modal
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        // Función para cerrar el modal
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('modal').classList.add('hidden');
+        });
+
+        // Evitar que el modal se cierre si se hace clic dentro de él
+        document.getElementById('modal').addEventListener('click', function(event) {
+            if (event.target === document.getElementById('modal')) {
+                document.getElementById('modal').classList.add('hidden');
+            }
+        });
+    </script>
 
     <script>
         // Datos de clientes para depuración
@@ -97,7 +141,7 @@ try {
 
         // Mostrar en consola
         console.log("Clientes:", clientes);
-        
+
         // Mostrar en el HTML (opcional para visualizar)
         const clientesDiv = document.getElementById('clientes-data');
         if (clientes.length > 0) {
@@ -110,4 +154,5 @@ try {
     </script>
 
 </body>
+
 </html>
