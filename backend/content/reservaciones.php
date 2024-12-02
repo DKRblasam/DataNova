@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h2 class="text-xl mb-4">Realizar una nueva reserva:</h2>
     <form action="" method="POST" class="bg-gray-100 p-4 rounded-lg shadow-md">
       <label for="restaurante" class="block mb-2">Restaurante:</label>
-      <select name="restaurante" id="restaurante" class="mb-4 p-2 border border-gray-300 rounded w-full">
+      <select name="restaurante" id="restaurante" class="mb-4 p-2 border border-gray-300 rounded w-full" style="color: #333;">
         <?php
         // Obtener los restaurantes disponibles
         $stmt = $pdo->query("SELECT id_restaurante, nombre FROM RESTAURANTES");
@@ -99,10 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </select>
 
       <label for="fecha" class="block mb-2">Fecha de reserva:</label>
-      <input type="date" name="fecha" id="fecha" class="mb-4 p-2 border border-gray-300 rounded w-full" required>
+      <input style="color: #333;" type="date" name="fecha" id="fecha" class="mb-4 p-2 border border-gray-300 rounded w-full" required>
 
       <label for="numero_personas" class="block mb-2">Número de personas:</label>
-      <input type="number" name="numero_personas" id="numero_personas" class="mb-4 p-2 border border-gray-300 rounded w-full" required min="1">
+      <input style="color: #333;" type="number" name="numero_personas" id="numero_personas" class="mb-4 p-2 border border-gray-300 rounded w-full" required min="1">
 
       <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg w-full">Realizar Reserva</button>
     </form>
