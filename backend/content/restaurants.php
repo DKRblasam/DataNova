@@ -32,7 +32,7 @@ try {
         section {
             padding: 10px;
         }
-        h2 h3 p{
+        h2 {
             color: #333;
         }
     </style>
@@ -94,12 +94,12 @@ try {
                         <?php foreach ($restaurantesData as $restaurante) : ?>
                             <li class="p-4 border rounded-lg shadow-sm bg-white">
                                 <h3 class="text-lg font-bold"><?= htmlspecialchars($restaurante['nombre']); ?></h3>
-                                <p >Ubicación: <?= htmlspecialchars($restaurante['ubicacion']); ?></p>
+                                <p class="text-sm text-black-600">Ubicación: <?= htmlspecialchars($restaurante['ubicacion']); ?></p>
                             </li>
                         <?php endforeach; ?>
                     </ul>
                 <?php else : ?>
-                    <p class="text-sm text-gray-500">No hay restaurantes disponibles en este momento.</p>
+                    <p class="text-sm text-black-500">No hay restaurantes disponibles en este momento.</p>
                 <?php endif; ?>
             </section>
 
