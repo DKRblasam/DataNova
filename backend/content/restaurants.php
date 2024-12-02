@@ -43,7 +43,7 @@ $restaurants = $stmt->fetchAll();
         }
 
         main {
-            margin-top: 80px;
+            margin-top: 135px;
             padding: 1rem;
         }
 
