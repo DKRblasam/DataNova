@@ -30,12 +30,19 @@ try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
-    while ($row = $stmt->fetch()) {
-        echo "<script> console.log('ID: {$row['id_cliente']} - Name: {$row['nombre']} - Address: {$row['correo']} - Phone: {$row['telefono']}'); </script>";
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch()) {
+            // Usa json_encode para evitar conflictos de caracteres
+            $logData = json_encode($row);
+            echo "<script> console.log($logData); </script>";
+        }
+    } else {
+        echo "<script> console.log('No se encontraron registros en la tabla clientes.'); </script>";
     }
 } catch (PDOException $e) {
-    echo "<script> console.error('Error al ejecutar la consulta: {$e->getMessage()}'); </script>";
+    $errorMessage = json_encode("Error al ejecutar la consulta: " . $e->getMessage());
+    echo "<script> console.error($errorMessage); </script>";
 }
 
+
 $pdo = null;
-?>
