@@ -6,7 +6,6 @@ MYSQL_ADDON_PASSWORD=D0Gn0SaZRv2PwTcDeUtw
 MYSQL_ADDON_URI=mysql://umil3ibxm0xtpsub:D0Gn0SaZRv2PwTcDeUtw@bcobddenafaiocpas8fm-mysql.services.clever-cloud.com:3306/bcobddenafaiocpas8fm
 */
 
-
 -- Crear Base de Datos
 CREATE DATABASE RestaurantManagementDB;
 USE RestaurantManagementDB;
