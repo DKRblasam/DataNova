@@ -135,10 +135,6 @@ try {
     <?php endif; ?>
   </section>
 
-  <footer class="bg-gray-800 text-white  text-center">
-    <p>© 2024 Todos los derechos reservados</p>
-  </footer>
-
 </body>
 
 </html>

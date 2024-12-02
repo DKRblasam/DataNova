@@ -106,13 +106,6 @@ try {
         </main>
 
 
-
-        <footer class="bg-blue-600 text-white py-4 mt-8">
-            <div class="container mx-auto text-center">
-                <p>&copy; 2024 Sistema de Reservas. Todos los derechos reservados.</p>
-            </div>
-        </footer>
-
         <script>
             // Datos de clientes para depuración
             <?php
