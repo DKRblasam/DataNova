@@ -26,5 +26,4 @@ try {
     // No es necesario volver a lanzar la excepción si ya se ha manejado el error.
     // throw new \PDOException("Database connection failed.", 500);
 }
-
 ?>
