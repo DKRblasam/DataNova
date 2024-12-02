@@ -9,12 +9,13 @@ $successMessage = "";
 // Manejar el registro de usuario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $username = $_POST['username'];
+    $lasname = $_POST['lasname'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash de la contraseña
 
     // Insertar el nuevo usuario en la base de datos
     try {
-        $stmt = $pdo->prepare("INSERT INTO Usuarios (nombre, email, contraseña, rol) VALUES (?, ?, ?, 'cliente')");
-        $stmt->execute([$username, $username . '@email.com', $password]); // Usamos el username como email
+        $stmt = $pdo->prepare("INSERT INTO Usuarios (id_usuario, nombre, apellido, email, contraseña, rol) VALUES (11, ?, ?, ?, 'cliente')");
+        $stmt->execute([$username, $lasname, $username . '@email.com', $password]); // Usamos el username como email
         $successMessage = "Registro exitoso. Puedes iniciar sesión ahora.";
     } catch (PDOException $e) {
         $errorMessage = "Error al registrar: " . $e->getMessage();
@@ -116,39 +117,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             </ul>
         </nav>
     </header>
+
     <div class="container">
         <h2 class="text-2xl font-bold text-center mb-4">Iniciar Sesión</h2>
-        <?php if ($errorMessage): ?>
-            <div class="bg-red-500 text-white p-2 rounded mb-4"><?php echo $errorMessage; ?></div>
-        <?php endif; ?>
-        <?php if ($successMessage): ?>
-            <div class="bg-green-500 text-white p-2 rounded mb-4"><?php echo $successMessage; ?></div>
-        <?php endif; ?>
-        <form method="POST">
-            <div class="mb-4">
-                <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-bold mb-2" for="password">Contraseña:</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required>
-            </div>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="login">Iniciar Sesión</button>
-        </form>
+        <div id="loginForm">
+            <!-- Formulario de inicio de sesión -->
+            <form method="POST">
+                <div class="mb-4">
+                    <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-bold mb-2" for="password">Contraseña:</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="login">Iniciar Sesión</button>
+            </form>
+        </div>
 
-        <h2 class="text-2xl font-bold text-center mb-4 mt-6">Registrar</h2>
-        <form method="POST">
-            <div class="mb-4">
-                <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-bold mb-2" for="password">Contraseña:</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required>
-            </div>
-            <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="register">Registrar</button>
-        </form>
+        <div id="registerForm" style="display: none;">
+            <h2 class="text-2xl font-bold text-center mb-4">Registrar</h2>
+            <!-- Formulario de registro -->
+            <form method="POST">
+                <div class="mb-4">
+                    <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
+
+                    <label class="block text-sm font-bold mb-2" for="lasname">Ingrese su apellido:</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="lasname" required>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="register">Registrar</button>
+            </form>
+        </div>
+
+        <button id="toggleButton" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">¿No tienes cuenta? Regístrate</button>
     </div>
+
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            var loginForm = document.getElementById('loginForm');
+            var registerForm = document.getElementById('registerForm');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                this.textContent = '¿No tienes cuenta? Regístrate';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                this.textContent = '¿Ya tienes cuenta? Inicia sesión';
+            }
+        });
+    </script>
 </body>
 
 </html>

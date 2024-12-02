@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </svg>
       </div>
       <h2 class="tile-pag">
-        MesaEstelar - Lista de restaurantes
+        MesaEstelar
       </h2>
     </div>
     <nav class="nav">
