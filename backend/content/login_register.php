@@ -14,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
     // Insertar el nuevo usuario en la base de datos
     try {
+        $stmt = $pdo->prepare("INSERT INTO Usuarios (nombre, email, contraseña, rol) VALUES (?, ?, ?, 'cliente')");
+        $stmt->execute([$username, $username . '@email.com', $password]); // Usamos el username como email
         $stmt = $pdo->prepare("INSERT INTO Usuarios (id_usuario, nombre, apellido, email, contraseña, rol) VALUES (11, ?, ?, ?, 'cliente')");
         $stmt->execute([$username, $lasname, $username . '@email.com', $password]); // Usamos el username como email
         $successMessage = "Registro exitoso. Puedes iniciar sesión ahora.";
@@ -21,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $errorMessage = "Error al registrar: " . $e->getMessage();
     }
 }
-
 
 // Manejar el inicio de sesión
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
