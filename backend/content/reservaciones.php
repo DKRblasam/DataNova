@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <main class="container mx-auto p-4">
     <h2 class="text-xl mb-4">Mis Reservas:</h2>
+    <a href="./reservation.php">Editar reservas</a>
     <table class="table-auto w-full mb-4">
       <thead>
         <tr>
