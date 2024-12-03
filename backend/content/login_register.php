@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     }
 }
 
+
 // Manejar el inicio de sesión
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -120,55 +121,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
     <div class="container">
         <h2 class="text-2xl font-bold text-center mb-4">Iniciar Sesión</h2>
-        <div id="loginForm">
-            <!-- Formulario de inicio de sesión -->
-            <form method="POST">
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2" for="password">Contraseña:</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required>
-                </div>
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="login">Iniciar Sesión</button>
-            </form>
-        </div>
-
-        <div id="registerForm" style="display: none;">
-            <h2 class="text-2xl font-bold text-center mb-4">Registrar</h2>
-            <!-- Formulario de registro -->
-            <form method="POST">
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
-
-                    <label class="block text-sm font-bold mb-2" for="lasname">Ingrese su apellido:</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="lasname" required>
-                </div>
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="register">Registrar</button>
-            </form>
-        </div>
-
-        <button id="toggleButton" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">¿No tienes cuenta? Regístrate</button>
+        <?php if ($errorMessage): ?>
+            <div class="bg-red-500 text-white p-2 rounded mb-4"><?php echo $errorMessage; ?></div>
+        <?php endif; ?>
+        <?php if ($successMessage): ?>
+            <div class="bg-green-500 text-white p-2 rounded mb-4"><?php echo $successMessage; ?></div>
+        <?php endif; ?>
+        <form method="POST">
+            <div class="mb-4">
+                <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-bold mb-2" for="password">Contraseña:</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="login">Iniciar Sesión</button>
+        </form>
+        <h2 class="text-2xl font-bold text-center mb-4 mt-6">Registrar</h2>
+        <form method="POST">
+            <div class="mb-4">
+                <label class="block text-sm font-bold mb-2" for="username">Nombre de Usuario:</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-bold mb-2" for="password">Contraseña:</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required>
+            </div>
+            <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="register">Registrar</button>
+        </form>
     </div>
 
-    <script>
-        document.getElementById('toggleButton').addEventListener('click', function() {
-            var loginForm = document.getElementById('loginForm');
-            var registerForm = document.getElementById('registerForm');
-
-            if (loginForm.style.display === 'none') {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
-                this.textContent = '¿No tienes cuenta? Regístrate';
-            } else {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                this.textContent = '¿Ya tienes cuenta? Inicia sesión';
-            }
-        });
-    </script>
 </body>
 
 </html>
