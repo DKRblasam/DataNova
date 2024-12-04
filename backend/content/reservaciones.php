@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) {
   header("Location: login_register.php");
   exit();
 }
