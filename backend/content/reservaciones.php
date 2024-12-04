@@ -11,6 +11,8 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
+var_dump($_SESSION);
+
 // Obtener las reservas del usuario
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT r.id_reserva, r.fecha, r.numero_personas, res.nombre AS restaurante_nombre 
