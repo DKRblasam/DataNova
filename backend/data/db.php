@@ -2,7 +2,7 @@
 // backend/databases/db.php
 
 $host = getenv('DB_HOST') ?: 'localhost';
-$db   = getenv('DB_NAME') ?: 'RestaurantManagementDB';
+$db   = getenv('DB_NAME') ?: 'restaurant_db';
 $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS') ?: 'El.Pass_w0rd';
 $charset = 'utf8mb4';
