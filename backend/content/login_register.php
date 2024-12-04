@@ -85,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* From Uiverse.io by vinodjangid07 */
         .button {
+            margin-top: 15px;
             width: 120px;
             height: 30px;
             display: flex;
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             color: white;
         }
 
-        .button:hover {
+        .text:hover {
             color: #22223b;
         }
     </style>
@@ -180,7 +180,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 </div>
                 <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="login">Iniciar Sesión</button>
             </form>
-            ¿No tienes cuanta?
+            <p style="margin-top: 10px; font-size: 20px;">
+                ¿No tienes cuanta?
+            </p>
             <button class="button" id="reg">
                 <span class="text">Registrase</span>
             </button>
