@@ -6,8 +6,8 @@ include("../data/db.php");
 $platillosData = [];
 
 try {
-  // Preparar la consulta SQL para seleccionar todos los platos
-  $sql_platillos = "SELECT * FROM PLATOS";
+  // Preparar la consulta SQL para seleccionar todos los platos y ordenarlos por categoría
+  $sql_platillos = "SELECT * FROM PLATOS ORDER BY categoria"; // Ordenar por categoría
   $stmt_platillos = $pdo->prepare($sql_platillos);  // Preparar la consulta
   $stmt_platillos->execute();  // Ejecutar la consulta
 
@@ -21,6 +21,16 @@ try {
 } catch (PDOException $e) {
   // Manejar errores si ocurre una excepción en la consulta
   $errorMessage = "Error al obtener los platillos: " . $e->getMessage();
+}
+
+// Agrupar los platillos por categoría
+$platillosPorCategoria = [];
+foreach ($platillosData as $platillo) {
+  $categoria = $platillo['categoria'];
+  if (!isset($platillosPorCategoria[$categoria])) {
+    $platillosPorCategoria[$categoria] = [];
+  }
+  $platillosPorCategoria[$categoria][] = $platillo;
 }
 ?>
 
@@ -41,10 +51,11 @@ try {
     }
 
     .card {
+      margin: 0 auto;
+      width: 300px;
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 15px;
-      margin: 10px;
       background-color: #fff;
       transition: transform 0.2s ease-in-out;
     }
@@ -54,10 +65,10 @@ try {
     }
 
     .card-title {
+      color: #22223b;
       font-size: 1.25rem;
       font-weight: bold;
       margin-bottom: 5px;
-      color: #333;
     }
 
     .card-price {
@@ -114,26 +125,34 @@ try {
         <li><a href='./restaurants.php' data-item='Restaurantes'>Restaurantes</a></li>
         <li><a href='./platillos.php' data-item='Platillos'>Platillos</a></li>
         <li><a href='../../backend/content/login_register.php' data-item='Ingresar'>Ingresar</a></li>
+        <li><a href='../../backend/content/dashboard.php' data-item='Perfil'>Perfil</a></li>
       </ul>
     </nav>
   </header>
+  
+  
+  <section class="text-center">
+    <h2 style="color: #22223b; font-weight: 600; font-family: 'Poppins', sans-serif; font-size: 40px; margin-bottom: 20px;">Platos Disponibles</h2>
 
-  <section class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-    <h2 class="text-2xl font-semibold text-center mb-6">Platos Disponibles</h2>
+    <?php if (!empty($platillosPorCategoria)): ?>
+      <!-- Mostrar los platillos agrupados por categoría -->
+      <?php foreach ($platillosPorCategoria as $categoria => $platillos): ?>
+        <div class="category-title" style="color: #22223b; font-weight: 600; font-family: 'Poppins', sans-serif; font-size: 30px; margin: 20px 0;"><?php echo htmlspecialchars($categoria) . ":"; ?></div>
 
-    <?php if (!empty($platillosData)): ?>
-      <!-- Si hay platos, se muestra cada uno en una tarjeta -->
-      <?php foreach ($platillosData as $platillo): ?>
-        <div class="card">
-          <div class="card-title"><?php echo htmlspecialchars($platillo['nombre']); ?></div>
-          <div class="card-price">$<?php echo number_format($platillo['precio'], 2); ?></div>
-          <div class="card-category"><?php echo htmlspecialchars($platillo['categoria']); ?></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 justify-items-center" style="width: max-content; max-width: 60%; margin: 0 auto;">
+          <?php foreach ($platillos as $platillo): ?>
+            <div class="card" style="max-width: 200px; margin: 0 auto;">
+              <div class="card-title" style="font-weight: bold;"><?php echo htmlspecialchars($platillo['nombre']); ?></div>
+              <div class="card-price" style="color: #28a745;">$<?php echo number_format($platillo['precio'], 2); ?></div>
+              <div class="card-category" style="color: #6c757d;"><?php echo htmlspecialchars($platillo['categoria']); ?></div>
+            </div>
+          <?php endforeach; ?>
         </div>
       <?php endforeach; ?>
     <?php else: ?>
       <p>No se encontraron platos disponibles.</p>
     <?php endif; ?>
-  </section>
+</section>
 
 </body>
 

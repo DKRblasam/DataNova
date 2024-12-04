@@ -20,7 +20,6 @@ body {
   justify-content: space-between;
 }
 
-
 .title {
   display: flex;
   align-items: center;
@@ -32,7 +31,7 @@ body {
 }
 
 .title h2 {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 1.8rem;
 }
 
@@ -75,14 +74,14 @@ p:hover::before {
 
 nav {
   padding: 16px;
-  width: 100%;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: end;
 }
 
 .menuItems {
-  width: 100%;
+  width: 90%;
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -91,7 +90,7 @@ nav {
 nav .menuItems li a {
   text-decoration: none;
   color: #ffff;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   transition: all 0.5s ease-in-out;
   position: relative;
@@ -146,7 +145,6 @@ nav .menuItems li a:hover::before {
 .tct {
   margin: 0 auto;
   width: 60%;
-
 }
 
 .desc {
@@ -185,10 +183,170 @@ button {
 
 button:hover {
   color: #516d91;
-  background-color: #E5EDF5;
+  background-color: #e5edf5;
   box-shadow: -2px -1px 8px 0px #ffffff, 2px 1px 8px 0px rgb(95 157 231 / 48%);
 }
 
 button:active {
   box-shadow: none;
+}
+
+/* Estilos para la modal */
+#platillosModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0000005c;
+  backdrop-filter: blur(0.4rem);
+  -webkit-backdrop-filter: blur(0.4rem);
+  z-index: 1000;
+}
+
+.platillos-content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#platillosModal .bg-white {
+  max-height: 600px;
+  overflow-y: auto;
+  background-color: #f1faee;
+  padding: 30px;
+  max-width: 560px;
+  width: max-content;
+  margin: auto;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+#platillosContent {
+  width: auto;
+  max-width: 500px;
+  background-color: #dbebd596;
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para la barra de desplazamiento en navegadores WebKit (Chrome, Safari) */
+#platillosContent::-webkit-scrollbar {
+  width: 1px; /* Ancho de la barra de desplazamiento */
+}
+
+#platillosContent::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color del pulgar de la barra de desplazamiento */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+#platillosContent::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color del pulgar al pasar el ratón */
+}
+
+/* Estilos para la barra de desplazamiento en Firefox */
+#platillosContent {
+  scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
+  scrollbar-color: #888 #f4f4f4; /* Color del pulgar y del fondo de la barra de desplazamiento */
+}
+
+.primary-button {
+  font-family: "Ropa Sans", sans-serif;
+  /* font-family: 'Valorant', sans-serif; */
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  border: 1px solid #0e1822;
+  padding: 0.8rem 2.1rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 531.28 200'%3E%3Cdefs%3E%3Cstyle%3E .shape %7B fill: %23FF4655 /* fill: %230E1822; */ %7D %3C/style%3E%3C/defs%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpolygon class='shape' points='415.81 200 0 200 115.47 0 531.28 0 415.81 200' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+  background-color: #0e1822;
+  background-size: 200%;
+  background-position: 200%;
+  background-repeat: no-repeat;
+  transition: 0.3s ease-in-out;
+  transition-property: background-position, border, color;
+  position: relative;
+  z-index: 1;
+}
+
+.primary-button:hover {
+  border: 1px solid #ff4655;
+  color: white;
+  background-position: 40%;
+}
+
+.primary-button:before {
+  content: "";
+  position: absolute;
+  background-color: #0e1822;
+  width: 0.2rem;
+  height: 0.2rem;
+  top: -1px;
+  left: -1px;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.primary-button:hover:before {
+  background-color: white;
+}
+
+.primary-button:hover:after {
+  background-color: white;
+}
+
+.primary-button:after {
+  content: "";
+  position: absolute;
+  background-color: #ff4655;
+  width: 0.3rem;
+  height: 0.3rem;
+  bottom: -1px;
+  right: -1px;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.button-borders {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 30px;
+}
+
+.button-borders:before {
+  content: "";
+  position: absolute;
+  width: calc(100% + 0.5em);
+  height: 50%;
+  left: -0.3em;
+  top: -0.3em;
+  border: 1px solid #0e1822;
+  border-bottom: 0px;
+  /* opacity: 0.3; */
+}
+
+.button-borders:after {
+  content: "";
+  position: absolute;
+  width: calc(100% + 0.5em);
+  height: 50%;
+  left: -0.3em;
+  bottom: -0.3em;
+  border: 1px solid #0e1822;
+  border-top: 0px;
+  /* opacity: 0.3; */
+  z-index: 0;
+}
+
+.shape {
+  fill: #0e1822;
 }

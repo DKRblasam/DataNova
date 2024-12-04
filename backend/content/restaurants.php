@@ -1,13 +1,32 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Incluir la conexión a la base de datos
 require_once('../data/db.php');
 
 // Consultar restaurantes
-$query = "SELECT nombre, direccion, o_h FROM RESTAURANTES";
+$query = "SELECT id_restaurante, nombre, direccion, o_h, imagen_id FROM RESTAURANTES";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $restaurants = $stmt->fetchAll();
 
+$img_res = [
+    1 => '../../frontend/public/media/restaurant/res1.jpg',
+    2 => '../../frontend/public/media/restaurant/res2.jpg',
+    3 => '../../frontend/public/media/restaurant/res3.webp',
+    4 => '../../frontend/public/media/restaurant/res4.jpeg',
+    5 => '../../frontend/public/media/restaurant/res5.jpg',
+    6 => '../../frontend/public/media/restaurant/res6.webp'
+];
+
+// Asignar la URL de la imagen a cada restaurante
+foreach ($restaurants as &$restaurant) {
+    $imagen_id = $restaurant['imagen_id']; // Obtener el id de imagen del restaurante
+    // Asignar la URL de la imagen o una cadena vacía si no existe
+    $restaurant['imagen'] = isset($img_res[$imagen_id]) ? $img_res[$imagen_id] : '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -43,17 +62,42 @@ $restaurants = $stmt->fetchAll();
         }
 
         main {
+            width: 100%;
             margin-top: 135px;
             padding: 1rem;
         }
 
         .restaurant-card {
+            margin: 0 auto;
+            width: 40%;
             background: #fff;
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 1rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .restaurant-card div {
+            margin-top: 10px;
+        }
+
+        .info-rest {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            background-color: #333;
+            opacity: .7;
+        }
+
+        .info-rest:hover {
+            opacity: 1;
+            cursor: crosshair;
+            transition: .6s;
         }
 
         .restaurant-name {
@@ -66,6 +110,59 @@ $restaurants = $stmt->fetchAll();
         .restaurant-info {
             font-size: 0.9rem;
             color: #555;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            background-color: #fff;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        @keyframes show {
+            from {
+                opacity: 0;
+                scale: 10%;
+            }
+
+            to {
+                opacity: 1;
+                scale: 100%;
+            }
+        }
+
+        .card {
+            view-timeline-name: --reveal;
+
+            animation-name: show;
+            animation-fill-mode: both;
+
+            animation-timeline: --reveal;
+            animation-range: entry 25% cover 50%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .card-price {
+            font-size: 1.1rem;
+            color: #28a745;
+            margin-bottom: 5px;
+        }
+
+        .card-category {
+            font-size: 0.9rem;
+            color: #6c757d;
         }
     </style>
 </head>
@@ -110,6 +207,7 @@ $restaurants = $stmt->fetchAll();
                 <li><a href='./restaurants.php' data-item='Restaurantes'>Restaurantes</a></li>
                 <li><a href='./platillos.php' data-item='Platillos'>Platillos</a></li>
                 <li><a href='../../backend/content/login_register.php' data-item='Ingresar'>Ingresar</a></li>
+                <li><a href='../../backend/content/dashboard.php' data-item='Perfil'>Perfil</a></li>
             </ul>
         </nav>
     </header>
@@ -119,15 +217,110 @@ $restaurants = $stmt->fetchAll();
         if (!empty($restaurants)) {
             foreach ($restaurants as $restaurant) {
                 echo '<div class="restaurant-card">';
+                echo '<div class="restaurant-c-info">';
                 echo '<div class="restaurant-name">' . htmlspecialchars($restaurant["nombre"]) . '</div>';
                 echo '<div class="restaurant-info"><strong>Dirección:</strong> ' . htmlspecialchars($restaurant["direccion"]) . '</div>';
                 echo '<div class="restaurant-info"><strong>Horario:</strong> ' . htmlspecialchars($restaurant["o_h"]) . '</div>';
+                // Botón para abrir la modal
+                echo '</div>';
+                echo '<button onclick="openModal(' . $restaurant["id_restaurante"] . ', \'' . htmlspecialchars($restaurant["nombre"]) . '\', \'' . htmlspecialchars($restaurant["direccion"]) . '\', \'' . htmlspecialchars($restaurant["o_h"]) . '\', \'' . htmlspecialchars($restaurant["imagen"]) . '\')" class="primary-button" style="margin-top: 35px;">Ver Platillos</button>';
                 echo '</div>';
             }
         } else {
             echo '<p>No se encontraron restaurantes.</p>';
         }
         ?>
+
+        <!-- Modal -->
+        <div id="platillosModal" class="fixed" class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" style="display: none;">
+            <div class="platillos-content">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <!-- Contenedor para información del restaurante -->
+                    <h2 class="text-xl font-bold mb-4">Restaurante</h2>
+                    <div id="restaurantInfo" class="mb-4" style="color: #333;">
+                        <img src="" alt="" srcset="" class="info-rest">
+                        <strong>Restaurante:</strong> <span id="restaurantName"></span><br>
+                        <strong>Dirección:</strong> <span id="restaurantAddress"></span><br>
+                        <strong>Horario:</strong> <span id="restaurantHours"></span>
+                    </div>
+                    <h2 class="text-xl font-bold mb-4">Platillos</h2>
+                    <div id="platillosContent"></div>
+
+                    <div class="button-borders">
+                        <button class="primary-button" onclick="closeModal()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function openModal(restaurantId, restaurantName, restaurantAddress, restaurantHours, restaurantImage) {
+                // console.log('Restaurant ID:', restaurantId); // Verificar el ID
+
+                // Mostrar información del restaurante
+                document.getElementById('restaurantName').textContent = restaurantName;
+                document.getElementById('restaurantAddress').textContent = restaurantAddress;
+                document.getElementById('restaurantHours').textContent = restaurantHours;
+
+                // Actualizar la imagen del restaurante
+                const imgElement = document.querySelector('.info-rest');
+                imgElement.src = restaurantImage; // Asigna la URL de la imagen
+                imgElement.alt = restaurantName; // Asigna un texto alternativo para la imagen
+
+                fetch(`../api/get_platillos.php?id_restaurante=${restaurantId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Verifica la respuesta aquí
+                        const platillosContent = document.getElementById('platillosContent');
+                        platillosContent.innerHTML = '<br><br><br><br><br><br><br><br><br><br><br>'; // Limpiar contenido anterior
+                        if (data.error) {
+                            platillosContent.innerHTML = `<p>${data.error}</p>`;
+                        } else {
+                            data.forEach(platillo => {
+                                // Verificar si el platillo tiene la propiedad precio
+                                if (platillo && platillo.precio !== undefined) {
+                                    const precioFormateado = parseFloat(platillo.precio).toFixed(2);
+
+                                    platillosContent.innerHTML += `
+                        <div class="card">
+                            <div class="card-title">${platillo.nombre}</div>
+                            <div class="card-price">$${precioFormateado}</div>
+                            <div class="card-category">${platillo.categoria}</div>
+                        </div>
+                    `;
+                                } else {
+                                    console.error('Platillo no definido o sin precio:', platillo);
+                                }
+                            });
+                        }
+                        platillosContent.innerHTML += '<br><br><br><br><br><br><br>';
+                        document.getElementById('platillosModal').style.display = 'block'; // Mostrar el modal
+                    })
+                    .catch(error => {
+                        console.error('Error fetching platillos:', error);
+                        document.getElementById('platillosContent').innerHTML = '<p>Error al cargar los platillos.</p>';
+                        document.getElementById('platillosModal').style.display = 'block'; // Mostrar el modal
+                    });
+            }
+
+            function closeModal(event) {
+                // Verifica que el evento no provenga del contenido del modal
+                if (event) {
+                    event.stopPropagation();
+                }
+                document.getElementById('platillosModal').style.display = 'none'; // Ocultar el modal
+            }
+
+            // Cerrar el modal al hacer clic fuera de él
+            document.getElementById('platillosModal').onclick = closeModal;
+
+            // Cerrar el modal al presionar la tecla "Esc"
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        </script>
     </main>
 </body>
 

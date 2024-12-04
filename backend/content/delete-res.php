@@ -83,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li><a href='./restaurants.php' data-item='Restaurantes'>Restaurantes</a></li>
                 <li><a href='./platillos.php' data-item='Platillos'>Platillos</a></li>
                 <li><a href='../../backend/content/login_register.php' data-item='Ingresar'>Ingresar</a></li>
+                <li><a href='../../backend/content/dashboard.php' data-item='Perfil'>Perfil</a></li>
             </ul>
         </nav>
     </header>
