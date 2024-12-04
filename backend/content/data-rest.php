@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 
 // Consultar los restaurantes
 try {
-    $sql_restaurantes = "SELECT id, nombre, direccion, o_h FROM RESTAURANTES";  // Consulta para obtener los datos
+    $sql_restaurantes = "SELECT id, nombre, direccion, o_h FROM restaurantes";  // Consulta para obtener los datos
     $stmt_restaurantes = $pdo->prepare($sql_restaurantes);
     $stmt_restaurantes->execute();
 

@@ -11,8 +11,8 @@ if (!isset($_SESSION['user_id'])) {
 // Obtener la reserva a eliminar
 $id = $_GET['id'];
 $stmt = $pdo->prepare("SELECT r.id_reserva, res.nombre AS restaurante_nombre, r.fecha, r.numero_personas 
-                        FROM RESERVAS r 
-                        JOIN RESTAURANTES res ON r.id_restaurante = res.id_restaurante 
+                        FROM  reservas  r 
+                        JOIN restaurantes res ON r.id_restaurante = res.id_restaurante 
                         WHERE r.id_reserva = ?");
 $stmt->execute([$id]);
 $reserva = $stmt->fetch();
@@ -24,7 +24,7 @@ if (!$reserva) {
 
 // Manejar la eliminación de la reserva
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $stmt = $pdo->prepare("DELETE FROM RESERVAS WHERE id_reserva = ?");
+    $stmt = $pdo->prepare("DELETE FROM  reservas  WHERE id_reserva = ?");
     $stmt->execute([$id]);
 
     header("Location: reservations.php"); // Redirigir a la página de reservas

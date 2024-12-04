@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Realizar la consulta con el nombre correcto de la tabla y el campo del ID
-$stmt = $pdo->prepare("SELECT nombre, correo, tipo FROM Usuarios WHERE id_usuario = ?");
+$stmt = $pdo->prepare("SELECT nombre, correo, tipo FROM usuarios WHERE id_usuario = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 

@@ -10,9 +10,9 @@ if (!isset($_SESSION['user_id'])) {
 // Obtener las reservas del usuario
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT r.id_reserva, r.fecha, r.numero_personas, res.nombre AS restaurante_nombre 
-                        FROM RESERVAS r 
-                        JOIN CLIENTES c ON r.id_cliente = c.id_cliente 
-                        JOIN RESTAURANTES res ON r.id_restaurante = res.id_restaurante 
+                        FROM  reservas  r 
+                        JOIN clientes c ON r.id_cliente = c.id_cliente 
+                        JOIN restaurantes res ON r.id_restaurante = res.id_restaurante 
                         WHERE c.id_cliente = ?");
 $stmt->execute([$user_id]);
 $reservas = $stmt->fetchAll();

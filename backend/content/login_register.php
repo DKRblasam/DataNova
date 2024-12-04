@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
     // Insertar el nuevo usuario en la base de datos
     try {
-        $stmt = $pdo->prepare("INSERT INTO Usuarios (nombre, correo, contraseña, tipo) VALUES (?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, correo, contraseña, tipo) VALUES (?, ?, ?, ?)");
         $stmt->execute([$username, $username . '@email.com', $password, 'cliente']); // Usamos el username como email
         $successMessage = "Registro exitoso. Puedes iniciar sesión ahora.";
     } catch (PDOException $e) {
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
     // Verificar las credenciales del usuario
     try {
-        $stmt = $pdo->prepare("SELECT * FROM Usuarios WHERE nombre = ?");
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE nombre = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch();
 
@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required>
             </div>
             <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="register">Registrar</button>
-            
+
         </form>
     </div>
 

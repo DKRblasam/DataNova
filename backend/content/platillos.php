@@ -7,7 +7,7 @@ $platillosData = [];
 
 try {
   // Preparar la consulta SQL para seleccionar todos los platos y ordenarlos por categoría
-  $sql_platillos = "SELECT * FROM PLATOS ORDER BY categoria"; // Ordenar por categoría
+  $sql_platillos = "SELECT * FROM platos ORDER BY categoria"; // Ordenar por categoría
   $stmt_platillos = $pdo->prepare($sql_platillos);  // Preparar la consulta
   $stmt_platillos->execute();  // Ejecutar la consulta
 

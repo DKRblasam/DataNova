@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha = $_POST['fecha'];
     $numero_personas = $_POST['numero_personas'];
 
-    $stmt = $pdo->prepare("UPDATE RESERVAS SET fecha = ?, numero_personas = ? WHERE id_reserva = ?");
+    $stmt = $pdo->prepare("UPDATE  reservas  SET fecha = ?, numero_personas = ? WHERE id_reserva = ?");
     $stmt->execute([$fecha, $numero_personas, $id]);
 
     header("Location: reservation.php"); // Redirigir a la página de reservas
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Obtener la reserva a editar
 $id = $_GET['id'];
-$stmt = $pdo->prepare("SELECT * FROM RESERVAS WHERE id_reserva = ?");
+$stmt = $pdo->prepare("SELECT * FROM  reservas  WHERE id_reserva = ?");
 $stmt->execute([$id]);
 $reserva = $stmt->fetch();
 

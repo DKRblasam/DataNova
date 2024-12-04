@@ -14,9 +14,9 @@ if (!isset($_SESSION['user_id'])) {
 // Obtener las reservas del usuario
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT r.id_reserva, r.fecha, r.numero_personas, res.nombre AS restaurante_nombre 
-                        FROM RESERVAS r 
-                        JOIN CLIENTES c ON r.id_cliente = c.id_cliente 
-                        JOIN RESTAURANTES res ON r.id_restaurante = res.id_restaurante 
+                        FROM  reservas  r 
+                        JOIN clientes c ON r.id_cliente = c.id_cliente 
+                        JOIN restaurantes res ON r.id_restaurante = res.id_restaurante 
                         WHERE c.id_cliente = ?");
 $stmt->execute([$user_id]);
 $reservas = $stmt->fetchAll();
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $numero_personas = $_POST['numero_personas'];
 
   // Insertar nueva reserva en la base de datos
-  $stmt = $pdo->prepare("INSERT INTO RESERVAS (id_cliente, id_restaurante, fecha, numero_personas) 
+  $stmt = $pdo->prepare("INSERT INTO  reservas  (id_cliente, id_restaurante, fecha, numero_personas) 
                            VALUES (?, ?, ?, ?)");
   $stmt->execute([$user_id, $restaurante_id, $fecha, $numero_personas]);
   echo "Reserva realizada exitosamente!";
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <select name="restaurante" id="restaurante" class="mb-4 p-2 border border-gray-300 rounded w-full" style="color: #333;">
         <?php
         // Obtener los restaurantes disponibles
-        $stmt = $pdo->query("SELECT id_restaurante, nombre FROM RESTAURANTES");
+        $stmt = $pdo->query("SELECT id_restaurante, nombre FROM restaurantes");
         $restaurantes = $stmt->fetchAll();
         foreach ($restaurantes as $restaurante) {
           echo "<option value='{$restaurante['id_restaurante']}'>{$restaurante['nombre']}</option>";

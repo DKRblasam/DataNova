@@ -13,7 +13,7 @@ if (!$action) {
 try {
     switch ($action) {
         case 'getRestaurants':
-            $stmt = $pdo->query("SELECT id, nombre AS name, direccion AS location FROM RESTAURANTES");
+            $stmt = $pdo->query("SELECT id, nombre AS name, direccion AS location FROM restaurantes");
             $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($restaurants);
             break;
@@ -25,7 +25,7 @@ try {
                 exit;
             }
 
-            $stmt = $pdo->prepare("INSERT INTO RESERVAS (restaurant_id, customer_name, reservation_time) VALUES (?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO  reservas  (restaurant_id, customer_name, reservation_time) VALUES (?, ?, ?)");
             $stmt->execute([$data['restaurant_id'], $data['customer_name'], $data['reservation_time']]);
             echo json_encode(['message' => 'Reserva creada con éxito']);
             break;

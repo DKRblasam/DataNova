@@ -11,47 +11,47 @@ CREATE DATABASE RestaurantManagementDB;
 USE RestaurantManagementDB;
 
 -- Tablas (estructura original)
-CREATE TABLE RESTAURANTES (
+CREATE TABLE restaurantes (
     id_restaurante INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
     direccion VARCHAR(200),
     o_h VARCHAR(100)
 );
 
-CREATE TABLE PLATOS (
+CREATE TABLE platos (
     id_plato INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
     precio DECIMAL(10,2),
     categoria VARCHAR(50)
 );
 
-CREATE TABLE RESTAURANTES_PLATOS (
+CREATE TABLE restaurantes_platos (
     id_restaurante_plato INT PRIMARY KEY AUTO_INCREMENT,
     id_restaurante INT,
     id_plato INT,
-    FOREIGN KEY (id_restaurante) REFERENCES RESTAURANTES(id_restaurante),
-    FOREIGN KEY (id_plato) REFERENCES PLATOS(id_plato)
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante),
+    FOREIGN KEY (id_plato) REFERENCES platos(id_plato)
 );
 
-CREATE TABLE CLIENTES (
+CREATE TABLE clientes (
     id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
     correo VARCHAR(100),
     telefono VARCHAR(20)
 );
 
-CREATE TABLE RESERVAS (
+CREATE TABLE  reservas  (
     id_reserva INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT,
     id_restaurante INT,
     fecha DATE,
     numero_personas INT,
-    FOREIGN KEY (id_cliente) REFERENCES CLIENTES(id_cliente),
-    FOREIGN KEY (id_restaurante) REFERENCES RESTAURANTES(id_restaurante)
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_restaurante) REFERENCES restaurantes(id_restaurante)
 );
 
 -- Inserción de Restaurantes (30 restaurantes)
-INSERT INTO RESTAURANTES (nombre, direccion, o_h) VALUES 
+INSERT INTO restaurantes (nombre, direccion, o_h) VALUES 
 ('La Parrilla', 'Av. Siempre Viva 123', 'Lun-Dom 12:00-23:00'),
 ('Sushi Nikkei', 'Calle Los Pinos 456', 'Mar-Sab 18:00-00:00'),
 ('Pizzería Napoli', 'Jiron Camaná 789', 'Lun-Dom 11:00-22:00'),
@@ -84,7 +84,7 @@ INSERT INTO RESTAURANTES (nombre, direccion, o_h) VALUES
 ('Restaurante de Autor', 'Paseo de los Chefs 250', 'Lun-Dom 12:00-23:00');
 
 -- Inserción de Platos (30 platos)
-INSERT INTO PLATOS (nombre, precio, categoria) VALUES
+INSERT INTO platos (nombre, precio, categoria) VALUES
 ('Asado Argentino', 25.50, 'Carnes'),
 ('Salmón Teriyaki', 22.00, 'Pescados'),
 ('Pizza Margherita', 15.75, 'Pizzas'),
@@ -117,19 +117,19 @@ INSERT INTO PLATOS (nombre, precio, categoria) VALUES
 ('Pizza Hawaiana', 16.00, 'Pizzas');
 
 -- Inserción de Restaurantes_Platos (asegurando referencias válidas)
-INSERT INTO RESTAURANTES_PLATOS (id_restaurante, id_plato) SELECT 
+INSERT INTO restaurantes_platos (id_restaurante, id_plato) SELECT 
     r.id_restaurante, 
     p.id_plato
 FROM 
-    RESTAURANTES r
+    restaurantes r
 CROSS JOIN 
-    PLATOS p
+    platos p
 WHERE 
     (r.id_restaurante <= 7 AND p.id_plato <= 17)
 LIMIT 50;  -- Limitar para evitar duplicados
 
 -- Inserción de Clientes 
-INSERT INTO CLIENTES (nombre, correo, telefono) VALUES 
+INSERT INTO clientes (nombre, correo, telefono) VALUES 
 ('Juan Pérez', 'juan.perez@email.com', '987654321'),
 ('María García', 'maria.garcia@email.com', '912345678'),
 ('Carlos Rodríguez', 'carlos.rodriguez@email.com', '965432187'),
@@ -142,16 +142,16 @@ INSERT INTO CLIENTES (nombre, correo, telefono) VALUES
 ('Valentina Morales', 'valentina.morales@email.com', '988776655');
 
 -- Inserción de Reservas
-INSERT INTO RESERVAS (id_cliente, id_restaurante, fecha, numero_personas) 
+INSERT INTO  reservas  (id_cliente, id_restaurante, fecha, numero_personas) 
 SELECT 
     c.id_cliente, 
     r.id_restaurante, 
     DATE_ADD('2024-03-15', INTERVAL (c.id_cliente - 1) DAY) AS fecha,
     (c.id_cliente % 5) + 2 AS numero_personas
 FROM 
-    CLIENTES c
+    clientes c
 CROSS JOIN 
-    RESTAURANTES r
+    restaurantes r
 WHERE 
     c.id_cliente <= 10 AND r.id_restaurante <= 10
 LIMIT 30; 

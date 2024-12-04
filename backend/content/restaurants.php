@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 require_once('../data/db.php');
 
 // Consultar restaurantes
-$query = "SELECT id_restaurante, nombre, direccion, o_h, imagen_id FROM RESTAURANTES";
+$query = "SELECT id_restaurante, nombre, direccion, o_h, imagen_id FROM restaurantes";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $restaurants = $stmt->fetchAll();
