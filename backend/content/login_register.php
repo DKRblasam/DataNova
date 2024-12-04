@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 ¿No tienes cuanta?
             </p>
             <button class="button" id="reg">
-                <span class="text">Registrase</span>
+                <span class="text" style="color:#22223b">Registrase</span>
             </button>
         </div>
         <div class="registrer" style="display: none;">
