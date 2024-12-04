@@ -1,12 +1,14 @@
 <?php
 session_start();
-include("../data/db.php");
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_id'])) {
     header("Location: login_register.php");
     exit();
 }
+
+include("../data/db.php");
+
 // Obtener las reservas del usuario
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT r.id_reserva, r.fecha, r.numero_personas, res.nombre AS restaurante_nombre 
@@ -81,7 +83,7 @@ $reservas = $stmt->fetchAll();
         </nav>
     </header>
     <div class="container mx-auto p-4">
-        <a href="./reservaciones.php" style="text-decoration: none;">
+        <a href="./reservaciones.php" style="text-decoration: underline;">
             Generar una nueva reservacion
         </a>
     <br><br>
