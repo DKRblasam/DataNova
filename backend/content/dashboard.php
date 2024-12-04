@@ -113,7 +113,7 @@ if (!$user) {
         </div>
 
         <div class="text-center mt-6">
-            <a href="../../frontend/pages/" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cerrar Sesión</a>
+            <a href="./logout.php" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cerrar Sesión</a>
         </div>
     </div>
 </body>
