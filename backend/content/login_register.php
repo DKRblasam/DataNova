@@ -109,28 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             color: white;
         }
 
-        .arrow path {
-            fill: rgb(19, 19, 19);
-        }
-
-        .button:hover .arrow {
-            animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        }
-
-        @keyframes slide-in-left {
-            0% {
-                transform: translateX(-8px);
-                opacity: 0;
-            }
-
-            100% {
-                transform: translateX(0px);
-                opacity: 1;
-            }
-        }
-
-        .button:active {
-            transform: scale(0.97);
+        .button:hover {
+            color: #22223b;
         }
     </style>
 </head>
