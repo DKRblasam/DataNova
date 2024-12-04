@@ -1,4 +1,5 @@
 <?php
+session_start(); // Iniciar la sesión
 include("../data/db.php");
 
 // Habilitar la visualización de errores para depurar
@@ -6,12 +7,12 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Verificar si el usuario ha iniciado sesión
-if (isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) { // Cambiar a !isset para redirigir si no hay sesión
   header("Location: login_register.php");
   exit();
 }
 
-var_dump($_SESSION);
+var_dump($_SESSION); // Esto mostrará la información de la sesión
 
 // Obtener las reservas del usuario
 $user_id = $_SESSION['user_id'];
@@ -35,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $stmt->execute([$user_id, $restaurante_id, $fecha, $numero_personas]);
   echo "Reserva realizada exitosamente!";
 }
-
 ?>
 
 <!DOCTYPE html>
