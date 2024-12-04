@@ -1,4 +1,17 @@
 <?php
+
+session_start(); // Iniciar la sesión
+
+// Habilitar la visualización de errores para depurar
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Verificar si el usuario ha iniciado sesión
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php"); // Redirigir a la página de inicio de sesión si no está autenticado
+    exit();
+}
+
 // Incluir el archivo de conexión a la base de datos
 include("../data/db.php");
 
